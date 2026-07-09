@@ -217,13 +217,24 @@ function wireSelectFilterLabel(label, table, spec) {
 /**
  * @param {HTMLTableElement} table
  * @param {FilterSpec[]} specs
+ * @param {string} searchIconClass
+ * @param {string} countClass
  * @returns {HTMLFieldSetElement}
  */
-function buildFilterFieldset(table, specs) {
+function buildFilterFieldset(table, specs, searchIconClass, countClass) {
   const fragment = clonePageTemplate(FILTER_TEMPLATE_ID);
   const fieldset = /** @type {HTMLFieldSetElement} */ (
     fragment.querySelector('fieldset')
   );
+
+  if (searchIconClass) {
+    fieldset.querySelector('.sortable-filter__icon')
+      ?.classList.add(...searchIconClass.split(' ').filter(Boolean));
+  }
+  if (countClass) {
+    fieldset.querySelector('output.' + OUTPUT_CLASS)
+      ?.classList.add(...countClass.split(' ').filter(Boolean));
+  }
 
   const searchSpec = specs.find((spec) => spec.type === 'search');
   const selectSpecs = specs.filter((spec) => spec.type === 'select');
@@ -262,8 +273,10 @@ function buildFilterFieldset(table, specs) {
 
 /**
  * @param {HTMLTableElement} table
+ * @param {string} searchIconClass
+ * @param {string} countClass
  */
-function buildFilters(table) {
+function buildFilters(table, searchIconClass, countClass) {
   const specs = parseFilterSpecs(table);
   if (!specs) {
     return;
@@ -276,7 +289,7 @@ function buildFilters(table) {
     return;
   }
 
-  const fieldset = buildFilterFieldset(table, specs);
+  const fieldset = buildFilterFieldset(table, specs, searchIconClass, countClass);
 
   table.parentNode?.insertBefore(fieldset, table);
 }
@@ -458,9 +471,11 @@ function wireFilters(table, list, scopeElement) {
  * @param {ParentNode} scopeElement
  * @param {string} notSortableSelector
  * @param {string} buttonClass
+ * @param {string} searchIconClass
+ * @param {string} countClass
  */
-function prepSortableTable(table, scopeElement, notSortableSelector, buttonClass) {
-  buildFilters(table);
+function prepSortableTable(table, scopeElement, notSortableSelector, buttonClass, searchIconClass, countClass) {
+  buildFilters(table, searchIconClass, countClass);
 
   const headerRow = table.tHead?.rows[0];
   if (!headerRow) {
@@ -559,12 +574,16 @@ function ensureFilterTemplate() {
  * @param {string} [options.tableSelector=table.js-sortable]
  * @param {string} [options.notSortableSelector=th.not-sortable]
  * @param {string} [options.buttonClass=''] // e.g. 'c-button c-button--as-link'
+ * @param {string} [options.searchIconClass=''] // e.g. 'icon icon-search icon-md'
+ * @param {string} [options.countClass=''] // e.g. 'text-truncate'
  */
 export default function sortableTable({
   scopeElement = document,
   tableSelector = DEFAULT_TABLE_SELECTOR,
   notSortableSelector = NOT_SORTABLE_SELECTOR,
   buttonClass = '',
+  searchIconClass = '',
+  countClass = '',
 } = {}) {
   if (typeof window.List !== 'function') {
     if (!listJsMissingLogged) {
@@ -580,7 +599,7 @@ export default function sortableTable({
 
   scopeElement.querySelectorAll(tableSelector).forEach((table) => {
     if (table instanceof HTMLTableElement) {
-      prepSortableTable(table, scopeElement, notSortableSelector, buttonClass);
+      prepSortableTable(table, scopeElement, notSortableSelector, buttonClass, searchIconClass, countClass);
     }
   });
 }

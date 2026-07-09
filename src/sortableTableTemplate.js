@@ -8,7 +8,7 @@ export const FILTER_TEMPLATE_HTML = /* html */`
 
     <label class="sortable-filter mr-auto">
       <i
-        class="icon icon-search icon-md sortable-filter__icon"
+        class="sortable-filter__icon"
         aria-label="Search"
       >Search</i>
       <input
@@ -16,7 +16,7 @@ export const FILTER_TEMPLATE_HTML = /* html */`
         class="sortable-filter__input"
         placeholder="Search…"
       />
-      <output class="js-sortable-total text-truncate" aria-atomic="true"></output>
+      <output class="js-sortable-total" aria-atomic="true"></output>
     </label>
 
     <label class="sortable-filter">
