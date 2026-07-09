@@ -61,12 +61,12 @@ To auto-build a filter bar above a table, add `id` and `data-sortable-filters` (
 </table>
 ```
 
-Filter spec types:
+Filter Specifications:
 
-| Type | Required fields | Optional fields |
+| Type | Required Fields | Optional Fields |
 |---|---|---|
 | `"search"` | `type` | `placeholder` |
-| `"select"` | `type`, `column`\* | `label` |
+| `"select"` | `type`, `column` | `label` |
 
 > [!NOTE]
 > `"column": 1` creates select filter for 1st column, `"column": 2` for 2nd column, _et cetera_. Add multiple filter objects to create multiple filters. The order of the array determines the order of the filters in the UI.
