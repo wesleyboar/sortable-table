@@ -1,9 +1,10 @@
 /**
- * Sortable Tables
+ * Sortable Tables — feature styles
+ * Third-party skin support: sortableTable.skins.css
  * API:
- *     - ../css/modules/sortableTable.css
- *     - ../js/modules/sortableTable.js
- *     - ../js/modules/sortableTable.html
+ *     - ./sortableTable.css
+ *     - ./sortableTable.skins.css (optional)
+ *     - ./sortableTable.js
  */
 
 .sortable-filter-list {
@@ -37,7 +38,6 @@
 .sortable-filter output {
   min-width: 4ch;
   font-weight: normal;
-  font-size: var(--global-font-size--small);
 }
 .sortable-filter__input + output {
   margin-left: 1em;
@@ -82,26 +82,11 @@ table.js-sortable {
       outline-offset: 0.25em;
     }
 
-    &.btn-link,
-    &.c-button--as-link {
-        line-height: inherit;
-        height: 1lh;
-        justify-content: start;
-        vertical-align: baseline;
-    }
-    &.c-button--as-link {
-        height: 1lh;
-    }
-    &.btn-link {
-        padding: 0;
-    }
   }
 
   & th:is([aria-sort="ascending"], [aria-sort="descending"]) > button {
     &::after {
       font-size: smaller;
-    }
-    &:not(.c-button--as-link)::after {
       margin-inline-start: 0.35em;
     }
   }
