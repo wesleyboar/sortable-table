@@ -1,11 +1,4 @@
-/**
- * Sortable Tables — feature styles
- * Third-party skin support: sortableTable.skins.css
- * API:
- *     - ./sortableTable.css
- *     - ./sortableTable.skins.css (optional)
- *     - ./sortableTable.js
- */
+/* FILTERS */
 
 .sortable-filter-list {
   --icon-width: 2.4rem;
@@ -19,6 +12,12 @@
 
   &:is(fieldset) {
     margin-block-end: 0;
+  }
+
+  /* to prevent wide fields from exceeding fieldset width */
+  & .sortable-filter,
+  & .sortable-filter__input {
+    min-width: 0;
   }
 }
 
@@ -69,6 +68,9 @@
   }
 }
 
+
+/* TABLE */
+
 table.js-sortable {
   & tbody:empty::before {
     content: 'No results found';
@@ -76,6 +78,7 @@ table.js-sortable {
 
   & button.js-sort::after {
     font-size: smaller;
+    align-self: self-end;
   }
   & th[aria-sort="ascending"] > button.js-sort::after { content: '▲'; }
   & th[aria-sort="descending"] > button.js-sort::after { content: '▼'; }
